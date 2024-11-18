@@ -36,7 +36,7 @@ namespace AutoUploadByFTI
             foreach (var task in BackgroundTaskRegistration.AllTasks)
             {
                 Debug.WriteLine(task.Value.Name.ToString());
-                if (task.Value.Name.Equals("MainClass"))
+                if (task.Value.Name.Equals("BGMainClass"))
                 {
                     task.Value.Unregister(true);
                     System.Diagnostics.Debug.WriteLine("find registered task and canceled");
@@ -46,8 +46,8 @@ namespace AutoUploadByFTI
 
             var builder = new BackgroundTaskBuilder
             {
-                Name = "MainClass",
-                TaskEntryPoint = "BGTaskClassLibrary.MainClass"
+                Name = "BGMainClass",
+                TaskEntryPoint = "BGTaskClassLibrary.BGMainClass"
             };
             builder.SetTrigger(new TimeTrigger(15, false));
 

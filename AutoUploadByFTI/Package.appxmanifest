@@ -43,7 +43,7 @@
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
       </uap:VisualElements>
       <Extensions>
-        <Extension Category="windows.backgroundTasks" EntryPoint="BGTaskClassLibrary.MainClass">
+        <Extension Category="windows.backgroundTasks" EntryPoint="BGTaskClassLibrary.BGMainClass">
           <BackgroundTasks>
             <Task Type="timer"/>
           </BackgroundTasks>
@@ -56,7 +56,7 @@
 		<Extension Category="windows.activatableClass.inProcessServer">
 			<InProcessServer>
 				<Path>WinRT.Host.dll</Path>
-				<ActivatableClass ActivatableClassId="BGTaskClassLibrary.MainClass" ThreadingModel="both" />
+				<ActivatableClass ActivatableClassId="BGTaskClassLibrary.BGMainClass" ThreadingModel="both" />
 			</InProcessServer>
 		</Extension>
 	</Extensions>

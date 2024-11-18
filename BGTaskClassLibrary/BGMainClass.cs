@@ -4,10 +4,11 @@ using Windows.Data.Xml.Dom;
 using Windows.ApplicationModel.Background;
 using Windows.UI.Notifications;
 using Serilog;
-using Serilog.Extensions.Logging;
-using Microsoft.Extensions.Logging;
+//using Serilog.Extensions.Logging;
+//using Microsoft.Extensions.Logging;
 using System.IO;
 using Windows.Media.Devices;
+using System.Linq;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -16,9 +17,9 @@ namespace BGTaskClassLibrary
 {
     public sealed class BGMainClass : IBackgroundTask
     {
-        private static Microsoft.Extensions.Logging.ILogger _logger;
-        //private static UploadDataConfig _uploadConfigData;
+        private ALogger _logger = new();
         private static TimestampFileHelper _timestampFileHelper;
+        private UploadDataConfig _uploadConfigData;
 
         string _schedulerConfigFolder = "";
         string _filetoread = "";
@@ -27,12 +28,10 @@ namespace BGTaskClassLibrary
         public BGMainClass()
         {
             // Initialize logger and notification service
-            ConfigureLogging(@"C:\ProgramData\FairbancData", "BGTaskError.log");
-            var loggerFactory = LoggerFactory.Create(builder =>
-            {
-                builder.AddProvider(new SerilogLoggerProvider());
-            });
-            _logger = loggerFactory.CreateLogger<BGMainClass>();
+            //ConfigureLogging(@"C:\ProgramData\FairbancData", "BGTaskError.log");
+            _logger.Configure(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "BGAutoUpload.log");
+
+
         }
 
         void IBackgroundTask.Run(IBackgroundTaskInstance taskInstance)
@@ -48,9 +47,6 @@ namespace BGTaskClassLibrary
 
             Debug.WriteLine($"this is：{taskInstance.Task.Name} background");
             SendToast("Background task: Auto upload task performed ...");
-
-
-
         }
 
         private static void SendToast(string message)
@@ -70,5 +66,9 @@ namespace BGTaskClassLibrary
                 .WriteTo.File(Path.Combine(folder, filename), rollingInterval: RollingInterval.Day)
                 .CreateLogger();
         }
+
+
     }
+
+
 }
