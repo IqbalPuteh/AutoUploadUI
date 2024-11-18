@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "AutoUploadByFTI (Package)": {
+      "commandName": "MsixPackage",
+      "alwaysReinstallApp": true
+    },
+    "AutoUploadByFTI (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
